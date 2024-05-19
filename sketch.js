@@ -2,14 +2,17 @@ var cols, rows;
 var w = 40;
 var grid = [];
 let canvasSize;
+var seconds = 0,
+  minutes = 0,
+  hours = 0;
+var timerInterval;
 
 var current;
 
 var stack = [];
 
-
-window.onload = function() {
-  var savedSize = localStorage.getItem('canvasSize');
+window.onload = function () {
+  var savedSize = localStorage.getItem("canvasSize");
   if (savedSize) {
     canvasSize = savedSize;
   } else {
@@ -22,6 +25,7 @@ function setup() {
   canvas.parent("canvas-container");
   cols = floor(width / w);
   rows = floor(height / w);
+  timerInterval = setInterval(updateTimer, 1000); // Update every 1 second
 
   for (var j = 0; j < rows; j++) {
     for (var i = 0; i < cols; i++) {
@@ -53,6 +57,8 @@ function draw() {
     current = next;
   } else if (stack.length > 0) {
     current = stack.pop();
+  } else {
+    clearInterval(timerInterval);
   }
 }
 
@@ -171,7 +177,25 @@ function removeWalls(a, b) {
 
 function submitForm() {
   var size = document.getElementById("size").value;
-  localStorage.setItem('canvasSize', size);
+  localStorage.setItem("canvasSize", size);
   canvasSize = size;
   setup();
+}
+
+function updateTimer() {
+  seconds++;
+  if (seconds >= 60) {
+    seconds = 0;
+    minutes++;
+    if (minutes >= 60) {
+      minutes = 0;
+      hours++;
+    }
+  }
+  var displayHours = hours < 10 ? "0" + hours : hours;
+  var displayMinutes = minutes < 10 ? "0" + minutes : minutes;
+  var displaySeconds = seconds < 10 ? "0" + seconds : seconds;
+
+  document.getElementById("timer").textContent =
+    displayHours + ":" + displayMinutes + ":" + displaySeconds;
 }
