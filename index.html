@@ -15,7 +15,12 @@
 
   <body>
     <div id="canvas-container"></div>
-    <p>Hello</p>
+    <form onsubmit="submitForm()">
+      <label for="cars">Enter maze size (value by value):</label>
+      <input id="size" type="number">
+      <br><br>
+      <input type="submit" value="Submit">
+    </form>
     <script src="sketch.js"></script>
   </body>
 </html>

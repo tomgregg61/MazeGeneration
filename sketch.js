@@ -1,15 +1,25 @@
 var cols, rows;
 var w = 40;
 var grid = [];
-var start = [0, 0];
+let canvasSize;
 
 var current;
 
 var stack = [];
 
+
+window.onload = function() {
+  var savedSize = localStorage.getItem('canvasSize');
+  if (savedSize) {
+    canvasSize = savedSize;
+  } else {
+    canvasSize = 400;
+  }
+};
+
 function setup() {
-  var canvas = createCanvas(800, 800);
-  canvas.parent('canvas-container');
+  var canvas = createCanvas(canvasSize, canvasSize);
+  canvas.parent("canvas-container");
   cols = floor(width / w);
   rows = floor(height / w);
 
@@ -157,4 +167,11 @@ function removeWalls(a, b) {
     a.walls[2] = false;
     b.walls[0] = false;
   }
+}
+
+function submitForm() {
+  var size = document.getElementById("size").value;
+  localStorage.setItem('canvasSize', size);
+  canvasSize = size;
+  setup();
 }
