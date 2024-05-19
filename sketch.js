@@ -1,15 +1,13 @@
-var cols, rows;
-var w = 40;
-var grid = [];
+let cols, rows;
+let w = 40;
+let grid = [];
 let canvasSize;
-var seconds = 0,
+let seconds = 0,
   minutes = 0,
   hours = 0;
-var timerInterval;
-
-var current;
-
-var stack = [];
+let timerInterval;
+let current;
+let stack = [];
 
 window.onload = function () {
   var savedSize = localStorage.getItem("canvasSize");
@@ -177,7 +175,7 @@ function removeWalls(a, b) {
 
 function submitForm() {
   var size = document.getElementById("size").value;
-  if (size > 1600) {
+  if (size > 40) {
     alert("Max sized reached (40 by 40)");
     size = 6;
   }
