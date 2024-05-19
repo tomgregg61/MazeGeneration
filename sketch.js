@@ -16,7 +16,7 @@ window.onload = function () {
   if (savedSize) {
     canvasSize = savedSize;
   } else {
-    canvasSize = 400;
+    canvasSize = 200;
   }
 };
 
@@ -177,8 +177,12 @@ function removeWalls(a, b) {
 
 function submitForm() {
   var size = document.getElementById("size").value;
+  if (size > 1600) {
+    alert("Max sized reached (40 by 40)");
+    size = 6;
+  }
   localStorage.setItem("canvasSize", size);
-  canvasSize = size;
+  canvasSize = size * w;
   setup();
 }
 
