@@ -8,7 +8,8 @@ var current;
 var stack = [];
 
 function setup() {
-  createCanvas(800, 800);
+  var canvas = createCanvas(800, 800);
+  canvas.parent('canvas-container');
   cols = floor(width / w);
   rows = floor(height / w);
 
