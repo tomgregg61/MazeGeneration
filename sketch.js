@@ -181,8 +181,8 @@ function submitForm() {
     alert("Max sized reached (40 by 40)");
     size = 6;
   }
-  localStorage.setItem("canvasSize", size);
   canvasSize = size * w;
+  localStorage.setItem("canvasSize", canvasSize);
   setup();
 }
 
