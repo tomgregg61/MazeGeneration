@@ -135,7 +135,7 @@ function Cell(i, j) {
         rect(x, y, w, w);
       } else {
         noStroke();
-        fill(0, 0, 0, 0);
+        fill(100, 100, 255, 40);
         rect(x, y, w, w);
       }
       rect(x, y, w, w);
