@@ -25,6 +25,7 @@ window.onload = function () {
     algorithm = "recursiveDFS";
   }
 };
+
 function setup() {
   var canvas = createCanvas(canvasSize, canvasSize);
   canvas.parent("canvas-container");
