@@ -7,10 +7,13 @@ let seconds = 0,
   hours = 0;
 let timerInterval;
 let current;
+let algorithm = "iterativeDFS";
+let chosen;
 let stack = [];
 
 window.onload = function () {
   var savedSize = localStorage.getItem("canvasSize");
+  var savedAlgorithm
   if (savedSize) {
     canvasSize = savedSize;
   } else {
@@ -32,7 +35,10 @@ function setup() {
     }
   }
 
+  console.log(chosen);
   current = grid[0];
+  current.visited = true;
+  stack.push(current);
 }
 
 function draw() {
@@ -41,22 +47,19 @@ function draw() {
     grid[i].show();
   }
 
-  current.visited = true;
-  current.highlight();
-  var next = current.checkNeighbours();
-  //Step 1
-  if (next) {
-    next.visited = true;
-    //Step 2
-    stack.push(current);
-    //Step 3
-    removeWalls(current, next);
-    //Step 4
-    current = next;
-  } else if (stack.length > 0) {
-    current = stack.pop();
-  } else {
-    clearInterval(timerInterval);
+  if (algorithm == "iterativeDFS") {
+    if (stack.length != 0) {
+      current = stack.pop();
+      var next = current.checkNeighbours();
+      if (next) {
+        stack.push(current);
+        removeWalls(current, next);
+        next.visited = true;
+        stack.push(next);
+      }
+    } else {
+      clearInterval(timerInterval);
+    }
   }
 }
 
@@ -175,12 +178,14 @@ function removeWalls(a, b) {
 
 function submitForm() {
   var size = document.getElementById("size").value;
+  var chosen = document.getElementById("algorithm").value;
   if (size > 40) {
     alert("Max sized reached (40 by 40)");
     size = 6;
   }
   canvasSize = size * w;
   localStorage.setItem("canvasSize", canvasSize);
+  localStorage.setItem("alogrithm", chosen);
   setup();
 }
 

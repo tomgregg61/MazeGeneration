@@ -17,9 +17,16 @@
     <div id="canvas-container"></div>
     <div>Time taken to generate: <span id="timer">00:00:00</span></div>
     <form onsubmit="submitForm()">
+      <br />
       <label for="cars">Enter maze size (value by value):</label>
       <input id="size" type="number" />
-      <br /><br />
+      <br />
+      <label for="cars">Choose algorithm:</label>
+      <select name="algorithm" id="algorithm">
+        <option value="recursiveDFS">Recursive Depth First Search</option>
+        <option value="iterativeDFS">Iterative Depth First Search</option>
+      </select>
+      <br />
       <input type="submit" value="Submit" />
     </form>
     <script src="sketch.js"></script>

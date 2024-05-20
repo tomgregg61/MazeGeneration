@@ -1,0 +1,19 @@
+  // current.visited = true;
+  // current.highlight();
+  // var next = current.checkNeighbours();
+  // //Step 1
+  // if (next) {
+  //   next.visited = true;
+  //   //Step 2
+  //   stack.push(current);
+  //   //Step 3
+  //   removeWalls(current, next);
+  //   //Step 4
+  //   current = next;
+  // } else if (stack.length > 0) {
+  //   current = stack.pop();
+  // } else {
+  //   clearInterval(timerInterval);
+  // }
+
+  for line 44
