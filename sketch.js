@@ -13,14 +13,18 @@ let stack = [];
 
 window.onload = function () {
   var savedSize = localStorage.getItem("canvasSize");
-  var savedAlgorithm
+  var savedAlgorithm = localStorage.getItem("algorithm");
   if (savedSize) {
     canvasSize = savedSize;
   } else {
     canvasSize = 200;
   }
+  if (savedAlgorithm) {
+    algorithm = savedAlgorithm;
+  } else {
+    algorithm = "recursiveDFS";
+  }
 };
-
 function setup() {
   var canvas = createCanvas(canvasSize, canvasSize);
   canvas.parent("canvas-container");
@@ -35,10 +39,12 @@ function setup() {
     }
   }
 
-  console.log(chosen);
   current = grid[0];
-  current.visited = true;
-  stack.push(current);
+  if (algorithm == "iterativeDFS") {
+    current.visited = true;
+    stack.push(current);
+  }
+  console.log(algorithm);
 }
 
 function draw() {
@@ -57,6 +63,24 @@ function draw() {
         next.visited = true;
         stack.push(next);
       }
+    } else {
+      clearInterval(timerInterval);
+    }
+  } else if (algorithm == "recursiveDFS") {
+    current.visited = true;
+    current.highlight();
+    var next = current.checkNeighbours();
+    //Step 1
+    if (next) {
+      next.visited = true;
+      //Step 2
+      stack.push(current);
+      //Step 3
+      removeWalls(current, next);
+      //Step 4
+      current = next;
+    } else if (stack.length > 0) {
+      current = stack.pop();
     } else {
       clearInterval(timerInterval);
     }
@@ -178,14 +202,14 @@ function removeWalls(a, b) {
 
 function submitForm() {
   var size = document.getElementById("size").value;
-  var chosen = document.getElementById("algorithm").value;
+  var algorithm = document.getElementById("algorithm").value;
   if (size > 40) {
     alert("Max sized reached (40 by 40)");
     size = 6;
   }
   canvasSize = size * w;
   localStorage.setItem("canvasSize", canvasSize);
-  localStorage.setItem("alogrithm", chosen);
+  localStorage.setItem("algorithm", algorithm);
   setup();
 }
 
