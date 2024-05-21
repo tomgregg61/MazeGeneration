@@ -16,11 +16,13 @@ window.onload = function () {
   var savedAlgorithm = localStorage.getItem("algorithm");
   if (savedSize) {
     canvasSize = savedSize;
+    document.getElementById("size").value = canvasSize / 40;
   } else {
     canvasSize = 200;
   }
   if (savedAlgorithm) {
     algorithm = savedAlgorithm;
+    document.getElementById("algorithm").value = savedAlgorithm;
   } else {
     algorithm = "recursiveDFS";
   }
